@@ -9,6 +9,9 @@ const Game = function () {
       [6, 7, 8],
       [0, 4, 8],
       [2, 4, 6],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
     ];
 
     for (let i = 0; i < winConditions.length; i++) {
@@ -47,14 +50,14 @@ const Board = function () {
   };
 
   const set = (index, player) => {
-    console.log(player);
+    let moved = false;
     if (board[index] == 0) {
       board[index] = player;
       document.getElementById("" + index).innerText = player;
-      return true;
+      moved = true;
     }
-
-    return false;
+    console.log(board);
+    return moved;
   };
 
   const get = (index) => {
@@ -66,12 +69,12 @@ const Board = function () {
   return { set, resetBoard, get };
 };
 
-document.getElementById("newGame").addEventListener("click", () => {
-  let game = new Game();
+window.onload = () => {
+  const game = new Game();
 
   for (let i = 0; i < 9; i++) {
     document
       .getElementById("" + i)
       .addEventListener("click", () => game.move(i));
   }
-});
+};

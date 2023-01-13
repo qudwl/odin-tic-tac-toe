@@ -2,6 +2,6 @@
 
 - [x] Skeleton HTML, CSS, JS
 - [x] Gameboard Object
-- [ ] Functions (Check Box, Win Condition)
+- [x] Functions (Check Box, Win Condition)
 - [ ] Clean Interface (Styling)
 - [ ] Create AI to never lose
