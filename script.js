@@ -27,14 +27,31 @@ const Game = function () {
       }
     }
 
+    if (board.isFull()) {
+      alert("Tie!");
+      board = new Board();
+      return true;
+    }
     curPlayer = curPlayer == "X" ? "O" : "X";
     return false;
   };
 
   const move = (index) => {
     if (board.set(index, curPlayer)) {
-      checkWin();
+      if (!checkWin()) {
+        aiMove();
+      }
     }
+  };
+
+  const aiMove = () => {
+    let index;
+    do {
+      index = Math.floor(Math.random() * 9);
+    } while (board.get(index) != 0);
+
+    board.set(index, curPlayer);
+    checkWin();
   };
 
   return { move };
@@ -64,9 +81,13 @@ const Board = function () {
     return board[index];
   };
 
+  const isFull = () => {
+    return board.indexOf(0) == -1;
+  };
+
   resetBoard();
 
-  return { set, resetBoard, get };
+  return { set, resetBoard, get, isFull };
 };
 
 window.onload = () => {
