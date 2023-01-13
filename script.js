@@ -1,31 +1,6 @@
 const Game = function () {
-  const board = Array(9).fill(0);
   let curPlayer = "X";
-
-  const resetBoard = () => {
-    for (let i = 0; i < 9; i++) {
-      board[i] = 0;
-      const curIndex = document.getElementById("" + i);
-      curIndex.innerText = "";
-      curIndex.addEventListener("click", () => changeBoard(i));
-    }
-    console.log(board);
-  };
-
-  const changeBoard = async (index) => {
-    if (board[index] == 0) {
-      board[index] = curPlayer;
-      document.getElementById("" + index).innerText = curPlayer;
-      if (checkWin()) {
-        resetBoard();
-        curPlayer = "X";
-      } else {
-        curPlayer = curPlayer == "X" ? "O" : "X";
-      }
-    }
-
-    console.log(board);
-  };
+  let board = new Board();
 
   const checkWin = () => {
     const winConditions = [
@@ -38,21 +13,65 @@ const Game = function () {
 
     for (let i = 0; i < winConditions.length; i++) {
       if (
-        board[[winConditions[i][0]]] == curPlayer &&
-        board[[winConditions[i][1]]] == curPlayer &&
-        board[[winConditions[i][2]]] == curPlayer
+        board.get(winConditions[i][0]) == curPlayer &&
+        board.get(winConditions[i][1]) == curPlayer &&
+        board.get(winConditions[i][2]) == curPlayer
       ) {
+        board = new Board();
         alert(curPlayer + " wins!");
+        curPlayer = "X";
         return true;
       }
     }
-    console.log(board);
+
+    curPlayer = curPlayer == "X" ? "O" : "X";
     return false;
+  };
+
+  const move = (index) => {
+    if (board.set(index, curPlayer)) {
+      checkWin();
+    }
+  };
+
+  return { move };
+};
+
+const Board = function () {
+  const board = Array(9).fill(0);
+  const resetBoard = () => {
+    board.fill(0);
+    for (let i = 0; i < 9; i++) {
+      document.getElementById("" + i).innerText = "";
+    }
+  };
+
+  const set = (index, player) => {
+    console.log(player);
+    if (board[index] == 0) {
+      board[index] = player;
+      document.getElementById("" + index).innerText = player;
+      return true;
+    }
+
+    return false;
+  };
+
+  const get = (index) => {
+    return board[index];
   };
 
   resetBoard();
 
-  return { changeBoard };
+  return { set, resetBoard, get };
 };
 
-document.getElementById("newGame").addEventListener("click", () => new Game());
+document.getElementById("newGame").addEventListener("click", () => {
+  let game = new Game();
+
+  for (let i = 0; i < 9; i++) {
+    document
+      .getElementById("" + i)
+      .addEventListener("click", () => game.move(i));
+  }
+});
