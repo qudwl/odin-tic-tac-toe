@@ -21,21 +21,36 @@ const Game = function () {
         board.get(winConditions[i][1]) == curPlayer &&
         board.get(winConditions[i][2]) == curPlayer
       ) {
-        board = new Board();
-        alert(curPlayer + " wins!");
-        curPlayer = "X";
+        overlay(curPlayer == "X" ? "You won!" : "You lost!");
         return true;
       }
     }
 
     if (board.isFull()) {
-      alert("Tie!");
-      board = new Board();
+      overlay("You tied!");
       return true;
     }
     curPlayer = curPlayer == "X" ? "O" : "X";
     return false;
   };
+
+  const overlay = (text) => {
+    const div = document.createElement('div');
+    const h1 = document.createElement('h1');
+
+    h1.innerText = text;
+    div.classList = 'overlay fadeIn';
+    div.appendChild(h1);
+
+    div.addEventListener("click", () => {
+      board = new Board();
+      curPlayer = "X";
+      div.classList = 'overlay fadeOut';
+      setTimeout(() => document.body.removeChild(div), 300);
+    })
+
+    document.body.appendChild(div);
+  }
 
   const move = (index) => {
     if (board.set(index, curPlayer)) {
@@ -92,7 +107,6 @@ const Game = function () {
     }
 
     let maxIndex = 0;
-    console.log(scoreArr);
 
     for (let i = 0; i < 9; i++) {
       if (scoreArr[i] != null) {

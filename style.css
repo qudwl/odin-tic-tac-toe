@@ -29,3 +29,40 @@ main div {
     display: flex;
     flex-direction: row;
 }
+
+.overlay {
+    z-index: 1;
+    background-color: rgba(50, 50, 50, 0.8);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.fadeIn {
+    animation: fadeIn 0.3s;
+}
+
+.fadeOut {
+    animation: fadeOut 0.3s;
+}
+
+.overlay h1 {
+    font-family: sans-serif;
+    font-size: 4em;
+}
+
+@keyframes fadeOut {
+    0% {opacity: 100%;}
+    100% {opacity: 0%}
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0%;}
+    100% {opacity: 100%;}
+}
