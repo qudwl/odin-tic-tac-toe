@@ -4,4 +4,4 @@
 - [x] Gameboard Object
 - [x] Functions (Check Box, Win Condition)
 - [x] Clean Interface (Styling)
-- [ ] Create AI to never lose
+- [x] Create AI to never lose
