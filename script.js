@@ -1,20 +1,21 @@
 // X == Human, O == AI
+
+const winConditions = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+];
+
 const Game = function () {
   let curPlayer = "X";
   let board = new Board();
 
   const checkWin = () => {
-    const winConditions = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-    ];
-
     for (let i = 0; i < winConditions.length; i++) {
       if (
         board.get(winConditions[i][0]) == curPlayer &&
@@ -61,16 +62,6 @@ const Game = function () {
   };
 
   const winCheck = (arr, player) => {
-    const winConditions = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-    ];
     for (let i = 0; i < winConditions.length; i++) {
       if (arr[winConditions[i][0]] == player && arr[winConditions[i][1]] == player && arr[winConditions[i][2]] == player) {
         return true;
@@ -130,7 +121,7 @@ const Game = function () {
         return 1;
       }
     } else if (testArr.indexOf(0) == -1) {
-      return 1;
+      return 0;
     } else {
       let result = 0;
       for (let i = 0; i < 9; i++) {
